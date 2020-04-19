@@ -6,7 +6,6 @@ function init(){
             center: [-963767.2963970036, 4957997.271053271],
             zoom: 14,
             maxZoom: 50,
-            minZoom: 4
         }),
         layers: [
             new ol.layer.Tile({
