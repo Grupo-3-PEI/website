@@ -140,6 +140,19 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
+input[type=button].mais{
+  border-radius: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  position: right;
+}
+
+input[type=button].menos{
+  border-radius: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 input[type=button], input[type=submit] {
   background-color: #f4a460;
   border: none;
@@ -150,8 +163,8 @@ input[type=button], input[type=submit] {
   display: inline-block;
   text-transform: uppercase;
   font-size: 16px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-box-shadow: 0 10px 30px 0 #f4a56031;
+  box-shadow: 0 10px 30px 0 #f4a56044;
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 50px 20px 40px 20px;
@@ -309,7 +322,7 @@ input[type=button]:active, input[type=submit]:active{
 }
 
 table{
-  width:600px;
+  width:1500px;
   table-layout: fixed;
 }
 
@@ -320,6 +333,19 @@ table{
 
 .tablecontent{
   height:190px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  background-color: #ffffffda;
+}
+
+.tableheader2{
+  margin-top:40px;
+  background-color: rgba(255,255,255,0.3);
+ }
+
+.tablecontent2{
+  height:400px;
   overflow-x:auto;
   margin-top: 0px;
   border: 3px solid rgba(255, 255, 255, 0.3);
