@@ -48,7 +48,29 @@ function init(){
         })
     })
 
+}
 
+function deleteRow(btn) {
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+
+function add(){
+    var table = document.getElementById("tableUser");
+
+    var newRow = table.insertRow(0);
+
+    var surname = document.getElementById("surname").value;
+    var fname = document.getElementById("fname").value;
+    var mail = document.getElementById("mail").value;
+
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
+
+    cell1.innerHTML = surname;
+    cell2.innerHTML = fname;
+    cell3.innerHTML = mail;
 }
 
 //function createLayer(){
