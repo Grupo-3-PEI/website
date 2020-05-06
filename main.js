@@ -1,6 +1,8 @@
 window.onload = init;
 
 function init(){
+    
+    // mapa 1
     const map = new ol.Map({
         view: new ol.View({
             center: [-963767.2963970036, 4957997.271053271],
@@ -47,37 +49,232 @@ function init(){
             console.log(feature);
         })
     })
+    
+    //mapa 2
 
+    var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
+    });
+
+    var source = new ol.source.Vector();
+    var vector = new ol.layer.Vector({
+        source: source,
+        style: new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: 'rgba(244, 164, 96, 0.2)'
+            }),
+            stroke: new ol.style.Stroke({
+                color: '#ffcc33',
+                width: 2
+            }),
+            image: new ol.style.Circle({
+                radius: 7,
+                fill: new ol.style.Fill({
+                    color: '#ffcc33'
+                })
+            })
+        })
+    });
+
+    // cria o mapa
+    const map2 = new ol.Map({
+        view: new ol.View({
+            center: [-963767.2963970036, 4957997.271053271],
+            zoom: 14,
+            maxZoom: 50,
+        }),
+        layers: [raster, vector],
+        target: 'js-map2'      
+    })
+
+    // obtém coordenadas no click
+    map2.on('click', function(e){
+        console.log(e.coordinate);
+    })
+
+    var modify = new ol.interaction.Modify({source: source});
+    map2.addInteraction(modify);
+
+    var draw, snap;
+
+    function addInteractions(){
+        draw = new ol.interaction.Draw({
+            source: source,
+            type: "Polygon"
+        });
+        map2.addInteraction(draw);
+        snap = new ol.interaction.Snap({source: source});
+        map.addInteraction(snap);
+    }
+
+
+    addInteractions();
+
+
+    // permite mapa em fullscreen
+    map2.addControl(new ol.control.FullScreen());
 }
 
-function deleteRow(btn) {
-    var row = btn.parentNode.parentNode;
-    row.parentNode.removeChild(row);
+
+////////// LISTA DE TROTINETES ///////////
+
+function loadTrots(data){
+    var allRows = data.split(/\r?\n|\r/);
+    var table = "<table>";
+    for(var singleRow=1; singleRow<allRows.length;singleRow++){
+        if(singleRow == 0){
+            table += "<tr>";
+        } else{
+            table += "<tr>";
+        }
+
+        var rowCells = allRows[singleRow].split(',');
+        for(var rowSingleCell=0; rowSingleCell<rowCells.length; rowSingleCell++){
+            if(singleRow == 0){
+                table += "<th>";
+                table += rowCells[rowSingleCell];
+                table += "</th>";
+            } else{
+                table += "<td>";
+                table += rowCells[rowSingleCell];
+                table += "</td>";
+            }
+        }
+
+        if(singleRow == 0){
+            table += "</tr>";
+        } else{
+            table += "</tr>";
+        }
+    }
+    $("#trot").append(table);
 }
 
-function add(){
-    var table = document.getElementById("tableUser");
+$.ajax({
+    url:"trot.csv",
+    dataType:"text",
+}).done(loadTrots)
 
-    var newRow = table.insertRow(0);
 
-    var surname = document.getElementById("surname").value;
-    var fname = document.getElementById("fname").value;
-    var mail = document.getElementById("mail").value;
+// linha com link para + informações
 
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-    var cell3 = newRow.insertCell(2);
 
-    cell1.innerHTML = surname;
-    cell2.innerHTML = fname;
-    cell3.innerHTML = mail;
+
+
+// TABELA DOS USERS
+/*
+// dar load dos conteúdos do ficheiro provenientes do server
+const user = document.querySelector("#tableUser > tbody");
+
+
+function loadUsers(){
+    const request = new XMLHttpRequest();
+
+    request.open("get", "users.json");
+
+    request.onload = () => {
+        try{
+            const json = JSON.parse(request.responseText); 
+
+            userList(json);
+        } catch(e){
+            console.warn("Could not load TUCs");
+        }
+
+    };
+
+    request.send();
 }
 
-//function createLayer(){
-//return new ol.layer.Vector({
-    // source: new ol.source.Vector({
-      //  url: 'map1.geojson',
-    //    format: new ol.format.GeoJSON()
-  //  }),
-//});
-//}
+function userList(json){
+    console.log(json);
+    // cleans out existing table data
+   while (user.firstChild){
+       user.removeChild(user.firstChild);
+   }
+
+   // Status table
+   json.forEach((row) => {
+       const tr = document.createElement("tr");
+
+       row.forEach((cell) => {
+           const td = document.createElement("td");
+           td.textContent = cell;
+           tr.appendChild(td);
+       });
+
+       user.appendChild(tr);
+
+   });
+}
+
+document.addEventListener("DOMContentLoaded", () => { loadUsers(); });
+*/
+
+function loadUsers(data){
+    var allRows = data.split(/\r?\n|\r/);
+    var table = "<table>";
+    for(var singleRow=1; singleRow<allRows.length;singleRow++){
+        if(singleRow == 0){
+            table += "<tr>";
+        } else{
+            table += "<tr>";
+        }
+
+        var rowCells = allRows[singleRow].split(',');
+        for(var rowSingleCell=0; rowSingleCell<rowCells.length; rowSingleCell++){
+            if(singleRow == 0){
+                table += "<th>";
+                table += rowCells[rowSingleCell];
+                table += "</th>";
+            } else{
+                table += "<td>";
+                table += rowCells[rowSingleCell];
+                table += "</td>";
+            }
+        }
+
+        if(singleRow == 0){
+            table += "</tr>";
+        } else{
+            table += "</tr>";
+        }
+    }
+    $("#tableUser2").append(table);
+}
+
+$.ajax({
+    url:"users.csv",
+    dataType:"text",
+}).done(loadUsers)
+
+// pesquisar users
+/*$(document).ready(function(){
+    $("#search").keyup(function(){
+        search_table($(this).val());
+    });
+
+    function search_table(value){
+        $("#tableUser2 tr td").each(function(){
+            var found = 'false';
+            $(this).each(function(){
+                if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0){
+                    found = 'true';
+                }
+            });
+            if(found == 'true'){
+                $(this).show();
+            }
+            else{
+                $(this).hide();
+            }
+        });
+    }
+});*/
+
+// adicionar users à tabela
+/*$(document).ready(function(){
+    $("#add").on('click', function(){
+        $("#tableUser2").append('<tr><td>'+$('#fname').val()+'</td><td>'+$('#surname').val()+'</td><td>'+$('#mail').val()+'</td></tr>');
+    });
+});*/

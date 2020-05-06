@@ -117,23 +117,9 @@
             </table>
           </div>
           <div class="tablecontent">
-            <table cellpadding="0" cellspacing="0" border="0">
+            <table id ="trot" cellpadding="0" cellspacing="0" border="0">
               <tbody>
-                <tr>
-                  <td><b>#1</b></td>
-                  <td><h10>AVAILABLE</h10></td>
-                  <td>66%</td>
-                </tr>
-                <tr>
-                  <td><b>#2</b></td>
-                  <td><h10>AVAILABLE</h10></td>
-                  <td>82%</td>
-                </tr>
-                <tr>
-                  <td><b>#3</b></td>
-                  <td><h11>IN USE</h11></td>
-                  <td>97%</td>
-                </tr>
+                <!--Javascript-->
               </tbody>
             </table>
           </div>
@@ -149,46 +135,31 @@
         <div class="col-lg-15 text-center">
           <h2 class="text-white mt-0" style="font-size:2vw"><b>USERS</b></h2>
           <hr class="divider light my-8">
+          <input type="text" name="search" id="search" class="form-control" />
           <div class="tableheader2">
-            <table cellpadding="0" cellspacing="0" border="0">
+            <table id="tableUser" cellpadding="0" cellspacing="0" border="0">
               <thead>
                 <tr>
-                  <th><b>Surname</b></th>
                   <th><b>First name</b></th>
+                  <th><b>Surname</b></th>
                   <th><b>E-mail</b></th>
-                  <th><b></b></th>
                 </tr>
               </thead>
             </table>
           </div>
           <div class="tablecontent2">
-            <table id="tableUser" cellpadding="0" cellspacing="0" border="0">
+            <table id="tableUser2" cellpadding="0" cellspacing="0" border="0">
               <tbody>
-                <tr>
-                  <td><b>Campos</b></td>
-                  <td>Manuel</td>
-                  <td>manuelccampos@ua.pt</td>
-                  <td><input type="button" class="menos" value="DELETE" onclick="deleteRow(this)"/></td>
-                </tr>
-                <tr>
-                  <td><b>Antunes</b></td>
-                  <td>Filipa</td>
-                  <td>filipanant@ua.pt</td>
-                  <td><input type="button" class="menos" value="DELETE" onclick="deleteRow(this)"/></td>
-                </tr>
-                <tr>
-                  <td><b>Lemos</b></td>
-                  <td>Sérgio</td>
-                  <td>ss_lemos@ua.pt</td>
-                  <td><input type="button" class="menos" id="delete" value="DELETE" onclick="deleteRow(this)"/></td>
-                </tr>
-                <tr>
-                  <td><input type="text" name="Surname" id="surname"></td>
-                  <td><input type="text" name="First name" id="fname"></td>
-                  <td><input type="text" name="E-mail" id="mail"></td>
-                  <td><input type="button" class="mais" id="add" value="ADD" onclick="add()"/></td>
-                </tr>
+                <!---Javascript-->
               </tbody>
+              <tfoot>
+                <tr>
+                  <!---<td><input type="text" name="First name" id="fname"></td>
+                  <td><input type="text" name="Surname" id="surname"></td>
+                  <td><input type="text" name="E-mail" id="mail"></td>
+                  <td><input type="button" class="mais" id="add" value="ADD"/></td>--->
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
@@ -216,6 +187,7 @@
           <div class="col-lg-15 text-center">
             <h2 class="text-white mt-0" style="font-size:2vw"><b>GEOFENCING</b></h2>
             <hr class="divider light my-8">
+            <div id='js-map2' class='mapMenu' style="width:1000px; height:500px;"></div>
           </div>
         </div>
       </div>
