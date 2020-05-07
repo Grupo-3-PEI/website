@@ -248,6 +248,41 @@ $.ajax({
     dataType:"text",
 }).done(loadUsers)
 
+
+
+// verificar se o utilizador tem permissao de acesso 
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "users.csv",
+        dataType: "text",
+        success: function(data) {
+            processUser(data);
+        }
+     });
+});
+
+function processUser(allText) {
+    //alert(allText);
+    var lines = allText.split("\\n");
+    //alert(lines);
+    var passou = 0;
+    var e = document.getElementById('email').value;
+    for(var i=1;i<lines.length;i++){
+        var email = lines[i].split(",");
+        if (email[2] == e){
+            passou = 1;
+            break;
+        }
+    }
+    if (passou == 0){
+        alert("O utilizador não tem permissão.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
 // pesquisar users
 /*$(document).ready(function(){
     $("#search").keyup(function(){

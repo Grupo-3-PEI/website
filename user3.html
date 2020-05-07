@@ -39,6 +39,12 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#location">Location</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#scooterList">Scooter list</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="index.html">LOG OUT</a>
           </li>
         </ul>
@@ -46,12 +52,44 @@
     </div>
   </nav>
 
-
-  <!-- Overwiew Section -->
-  <section class="page-section masthead" style="height: 925px;" id="Overwiew">
+  <!-- Scooter Location Section -->
+  <section class="page-section bg-primary" id="location">
     <div class="container">
-      <div id='js-map' class='map' style="width:100%; height:600px;"></div>
+      <div class="row justify-content-center">
+        <div class="col-lg-15 text-center">
+          <h2 class="text-black mt-0" style="font-size:2vw; color:#ffffff"><b>LOCATION</b></h2>
+          <div id='js-map' class='mapMenu' style="width:1000px; height:600px;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Scooter List Section -->
+  <section class="page-section bg-dark" id="scooterList">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-15 text-center">
+          <h2 class="text-black mt-0" style="font-size:2vw; color:#ffffff"><b>SCOOTER LIST</b></h2>
+          <div class="tableheader">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <thead>
+                <tr>
+                  <th><b>ID</b></th>
+                  <th><b>Status</b></th>
+                  <th><b>Battery</b></th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="tablecontent">
+            <table id ="trot" cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                <!--Javascript-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

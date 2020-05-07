@@ -36,6 +36,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger">Trotinetes Universitárias Conectadas</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -44,21 +47,18 @@
   <!-- Masthead -->
   <header class="masthead">
     <div class="wrapper fadeInDown">
-      <div id="formContent">
+      <div id="formContent" style="width: 500px; height: 400px;">
         <!-- Tabs Titles -->
         <button onclick="document.location = 'index.html'" class="button11"><b>MANAGER</b></button>
         <button class="button22"><b>USER</b></button>
 
-        <!-- Login Form -->
-        <a href="user3.html">
+        <!-- Login -->
+        <form action="user3.html">
+          <br><br>
+          <input type="text" id="email" placeholder="Email" size="25" style="padding: 1%; border: 1px solid #f4a460; box-shadow: 0 0 2px 0 #f4a460;"><br><br>
+          <input type="text" id="pass" placeholder="Password" size="25" style="padding: 1%; border: 1px solid #f4a460; box-shadow: 0 0 2px 0 #f4a460;"><br>
           <input type="submit" class="fadeIn fourth" value="Log In">
-        </a>
-    
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-          <h6>Trotinetes Universitárias Conectadas</h6>
-        </div>
-    
+        </form>  
       </div>
     </div>
   </header>
