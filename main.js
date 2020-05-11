@@ -26,7 +26,7 @@ function init(){
     // vector layers
     const circleStyle = new ol.style.Circle({
         fill: new ol.style.Fill({
-            color: [245, 49, 5, 1]
+            color: 'rgba(244, 164, 96)'
         }),
         radius: 10
     })
@@ -50,7 +50,7 @@ function init(){
         })
     })
     
-    //mapa 2
+    //mapa 2 - geofencing
 
     var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
@@ -116,7 +116,7 @@ function init(){
 }
 
 
-////////// LISTA DE TROTINETES ///////////
+// TABELA DE TROTINETES
 
 function loadTrots(data){
     var allRows = data.split(/\r?\n|\r/);
@@ -128,7 +128,7 @@ function loadTrots(data){
             table += "<tr>";
         }
 
-        var rowCells = allRows[singleRow].split(',');
+        var rowCells = allRows[singleRow].split(';');
         for(var rowSingleCell=0; rowSingleCell<rowCells.length; rowSingleCell++){
             if(singleRow == 0){
                 table += "<th>";
@@ -156,97 +156,204 @@ $.ajax({
 }).done(loadTrots)
 
 
-// linha com link para + informações
-
-
-
-
-// TABELA DOS USERS
-/*
-// dar load dos conteúdos do ficheiro provenientes do server
-const user = document.querySelector("#tableUser > tbody");
-
-
-function loadUsers(){
-    const request = new XMLHttpRequest();
-
-    request.open("get", "users.json");
-
-    request.onload = () => {
-        try{
-            const json = JSON.parse(request.responseText); 
-
-            userList(json);
-        } catch(e){
-            console.warn("Could not load TUCs");
-        }
-
-    };
-
-    request.send();
-}
-
-function userList(json){
-    console.log(json);
-    // cleans out existing table data
-   while (user.firstChild){
-       user.removeChild(user.firstChild);
-   }
-
-   // Status table
-   json.forEach((row) => {
-       const tr = document.createElement("tr");
-
-       row.forEach((cell) => {
-           const td = document.createElement("td");
-           td.textContent = cell;
-           tr.appendChild(td);
-       });
-
-       user.appendChild(tr);
-
-   });
-}
-
-document.addEventListener("DOMContentLoaded", () => { loadUsers(); });
-*/
+// TABELA DE USERS
 
 function loadUsers(data){
     var allRows = data.split(/\r?\n|\r/);
     var table = "<table>";
     for(var singleRow=1; singleRow<allRows.length;singleRow++){
-        if(singleRow == 0){
-            table += "<tr>";
-        } else{
-            table += "<tr>";
-        }
+        id_no = singleRow;
+        table += "<tr id='row_"+id_no+"' href='/index.html'>";
 
         var rowCells = allRows[singleRow].split(',');
         for(var rowSingleCell=0; rowSingleCell<rowCells.length; rowSingleCell++){
             if(singleRow == 0){
-                table += "<th>";
+                table += "<th id='delete_"+id_no+"'>";
                 table += rowCells[rowSingleCell];
                 table += "</th>";
             } else{
                 table += "<td>";
                 table += rowCells[rowSingleCell];
-                table += "</td>";
+
+                if(rowSingleCell == rowCells.length - 1){
+                    table += '<td><input type="submit" class="menos" id="del_'+id_no+'" value="DELETE"/></td>';
+                    table += "</td>";
+                } else{
+                    table += "</td>";
+                }
             }
         }
 
         if(singleRow == 0){
             table += "</tr>";
-        } else{
-            table += "</tr>";
+        } else {
+            table += "</tr>"
         }
     }
     $("#tableUser2").append(table);
+    
 }
 
-$.ajax({
-    url:"users.csv",
-    dataType:"text",
-}).done(loadUsers)
+// ELIMINAR UMA ENTRADA DA TABELA
+
+$(document).on('click', '.menos', function(){
+
+    function getId(element){
+        var id, idArr;
+        // id = 'del_número'
+        id = element.attr('id');
+        // separa em dois o id: del_ + número
+        idArr = id.split("_");
+        // retorna o número (da row)
+        return idArr[idArr.length-1];
+    }
+
+    var currentEle, rowNo;
+    // obtém o id da row selecionada
+    currentEle = $(this);
+    // número da row selecionada
+    rowNo = getId(currentEle);
+    var id_del = document.getElementById("row_"+rowNo).cells[0].innerHTML;
+    console.log(id_del);
+    // remove a row correspondente
+    $("#row_"+rowNo).remove();
+
+    $.ajax({
+        url:'users.csv',
+        type:'POST',
+        data: id_del,
+        success: function() {
+        }
+    });
+
+});
+
+// pesquisar users
+/*$(document).ready(function(){
+    $("#search").keyup(function(){
+        search_table($(this).val());
+    });
+
+    function search_table(value){
+        $("#tableUser2 tr td").each(function(){
+            var found = 'false';
+            $(this).each(function(){
+                if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0){
+                    found = 'true';
+                }
+            });
+            if(found == 'true'){
+                $(this).show();
+            }
+            else{
+                $(this).hide();
+            }
+        });
+    }
+});*/
+
+// adicionar users à tabela
+$(document).ready(function(){
+    $("#add").on('click', function(){
+
+        $("#id_error_msg").hide();
+        $("#name_error_msg").hide();
+        $("#mail_error_msg").hide();
+    
+        var id_error = false;
+        var name_error = false;
+        var mail_error = false;
+    
+        $("#idUser").focusout(function(){
+            check_id();
+        });
+    
+        $("#name").focusout(function(){
+            check_name();
+        });
+    
+        $("#mail").focusout(function(){
+            check_mail();
+        });
+    
+        function check_id(){
+            var id_length = $("#idUser").val().length;
+    
+            if($.trim($('#idUser').val())== ''){
+                $("#id_error_msg").html("Input cannot be left blank");
+                $("#id_error_msg").show();
+            } else {
+                $("#id_error_msg").hide();
+            }
+        }
+    
+        function check_name(){
+            var name_length = $("#name").val().length;
+    
+            if ($.trim($('#name').val())== ''){
+                $("#name_error_msg").html("Input cannot be left blank");
+                $("#name_error_msg").show();
+                name_error = true;
+            } else {
+                $("#name_error_msg").hide();
+            }
+        }
+    
+        function check_mail(){
+            var pattern = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i);
+    
+            if (pattern.test($("#mail").val())){
+                $("#mail_error_msg").hide();
+            } else {
+                $("#mail_error_msg").html("Invalid e-mail address");
+                $("#mail_error_msg").show();
+                mail_error = true;
+            }
+            
+        }
+
+        check_id();
+        check_name();
+        check_mail();
+
+        if(id_error == false && name_error == false && mail_error == false){
+            $("#tableUser2 tr:last").after('<tr><td>'+$('#idUser').val()+'</td><td>'+$('#name').val()+'</td><td>'+$('#mail').val()+'</td><td><input type="submit" class="menos" id="remove" value="DELETE"/></td></tr>');
+            // hard refresh
+            // location.reload(true);
+            //return true;
+        } else {
+            return false;
+        }
+        
+        // valores a ser enviados para o servidor
+        var sendData = {
+            id: $('#idUser').val(),
+            name: $('#name').val(),
+            email: $('#mail').val(),
+        }
+        
+        console.log(sendData);
+
+        // limpar valores adicionados dos campos de input
+        $('#idUser').val('');
+        $('#name').val('');
+        $('#mail').val('');
+        
+        $.ajax({
+            url:'users.csv',
+            type:'POST',
+            data: sendData,
+            success: function() {
+            }
+        });
+    });
+});
+
+$(document).ready(function($){
+    $("#trot tr").click(function(){
+        window.location = $(this).data("href");
+    });
+});
 
 
 
@@ -282,34 +389,3 @@ function processUser(allText) {
         return true;
     }
 }
-
-// pesquisar users
-/*$(document).ready(function(){
-    $("#search").keyup(function(){
-        search_table($(this).val());
-    });
-
-    function search_table(value){
-        $("#tableUser2 tr td").each(function(){
-            var found = 'false';
-            $(this).each(function(){
-                if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0){
-                    found = 'true';
-                }
-            });
-            if(found == 'true'){
-                $(this).show();
-            }
-            else{
-                $(this).hide();
-            }
-        });
-    }
-});*/
-
-// adicionar users à tabela
-/*$(document).ready(function(){
-    $("#add").on('click', function(){
-        $("#tableUser2").append('<tr><td>'+$('#fname').val()+'</td><td>'+$('#surname').val()+'</td><td>'+$('#mail').val()+'</td></tr>');
-    });
-});*/

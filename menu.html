@@ -59,14 +59,14 @@
   </nav>
 
   <!-- Overwiew Section -->
-  <section class="page-section" style="height: 925px;" id="Overwiew">
+  <section class="page-section masthead" style="height: 925px;" id="Overwiew">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-15 text-center">
-          <br><br><br>
-          <h2 class="text-black mt-0" style="font-size:7vw"><b>T U C</b></h2>
+          <br><br>
+          <h2 class="text-black mt-0" style="font-size:5vw"><b>T U C</b></h2>
           <p class="text-black-75 font-weight mb-1" style="font-size:1.5vw"><b>Trotinetes Universitárias Conectadas</b></p>  
-          <br><br><br><br>
+          <br><br><br><br><br>     
         </div>
       </div>
       <div class="row " style="position: center;">
@@ -104,6 +104,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-15 text-center">
           <h2 class="text-black mt-0" style="font-size:2vw; color:#ffffff"><b>SCOOTER LIST</b></h2>
+          <hr class="divider light my-8">
           <div class="tableheader">
             <table cellpadding="0" cellspacing="0" border="0">
               <thead>
@@ -133,15 +134,16 @@
       <div class="row justify-content-center">
         <div class="col-lg-15 text-center">
           <h2 class="text-white mt-0" style="font-size:2vw"><b>USERS</b></h2>
-          <br><br><br>
+          <hr class="divider light my-8">
           <input type="text" name="search" id="search" class="form-control" />
           <div class="tableheader2">
             <table id="tableUser" cellpadding="0" cellspacing="0" border="0">
               <thead>
                 <tr>
-                  <th><b>First name</b></th>
-                  <th><b>Surname</b></th>
+                  <th><b>ID</b></th>
+                  <th><b>Name</b></th>
                   <th><b>E-mail</b></th>
+                  <th></th>
                 </tr>
               </thead>
             </table>
@@ -152,12 +154,14 @@
                 <!---Javascript-->
               </tbody>
               <tfoot>
-                <tr>
-                  <!---<td><input type="text" name="First name" id="fname"></td>
-                  <td><input type="text" name="Surname" id="surname"></td>
-                  <td><input type="text" name="E-mail" id="mail"></td>
-                  <td><input type="button" class="mais" id="add" value="ADD"/></td>--->
-                </tr>
+                <form action="#" method="post" id="formUser"></form>
+                  <tr>
+                    <td><input type="text" name="ID" id="idUser" placeholder="Card ID"><span class="error" id="id_error_msg"></span></td>
+                    <td><input type="text" name="Name" id="name" placeholder="Name"><span class="error" id="name_error_msg"></span></td>
+                    <td><input type="text" name="E-mail" id="mail" placeholder="E-mail"><span class="error" id="mail_error_msg"></span></td>
+                    <td><input type="submit" class="mais" id="add" value="ADD"/></td>
+                  </tr>
+                </form>
               </tfoot>
             </table>
           </div>
@@ -172,6 +176,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-15 text-center">
           <h2 class="text-black mt-0" style="font-size:2vw; color:#ffffff"><b>LOCATION</b></h2>
+          <hr class="divider light my-8">
           <div id='js-map' class='mapMenu' style="width:1000px; height:500px;"></div>
         </div>
       </div>
@@ -184,6 +189,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-15 text-center">
             <h2 class="text-white mt-0" style="font-size:2vw"><b>GEOFENCING</b></h2>
+            <hr class="divider light my-8">
             <div id='js-map2' class='mapMenu' style="width:1000px; height:500px;"></div>
           </div>
         </div>
