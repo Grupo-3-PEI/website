@@ -194,6 +194,11 @@ function loadUsers(data){
     
 }
 
+$.ajax({
+    url:"users.csv",
+    dataType:"text",
+}).done(loadUsers)
+
 // ELIMINAR UMA ENTRADA DA TABELA
 
 $(document).on('click', '.menos', function(){
@@ -357,7 +362,7 @@ $(document).ready(function($){
 
 
 
-// verificar se o utilizador tem permissao de acesso 
+/*// verificar se o utilizador tem permissao de acesso 
 $(document).ready(function() {
     $.ajax({
         type: "GET",
@@ -388,4 +393,4 @@ function processUser(allText) {
     } else {
         return true;
     }
-}
+}*/
