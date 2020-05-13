@@ -360,8 +360,6 @@ $(document).ready(function($){
     });
 });
 
-
-
 /*// verificar se o utilizador tem permissao de acesso 
 $(document).ready(function() {
     $.ajax({

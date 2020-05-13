@@ -44,6 +44,7 @@
     </div>
   </nav>
 
+  <!-- --------------------- LOGIN --------------------- -->
   <!-- Masthead -->
   <header class="masthead">
     <div class="wrapper fadeInDown">
@@ -57,11 +58,29 @@
           <br><br>
           <input type="text" id="email" placeholder="Email" size="25" style="padding: 1%; border: 1px solid #f4a460; box-shadow: 0 0 2px 0 #f4a460;"><br><br>
           <input type="text" id="pass" placeholder="Password" size="25" style="padding: 1%; border: 1px solid #f4a460; box-shadow: 0 0 2px 0 #f4a460;"><br>
-          <input type="submit" href="#" id="login" class="fadeIn fourth" value="Log In" onclick= "return processUser('users.csv')">
+          <input type="submit" id="login" class="fadeIn fourth" value="Log In" onclick= "return checkPermission()">
         </form>  
       </div>
     </div>
   </header>
+
+  <script>
+    function checkPermission(){
+      if (document.getElementById('email').value == ""){
+          alert ("Invalid email.");
+          return false;
+      } else {
+        var email = document.getElementById('email').value;
+        if (email == "gestor@ua.pt"){
+          return true;
+        } else {
+          alert ("The user doesn't have permission.");
+        return false;
+        }
+      } 
+    }
+  </script>
+  <!-- --------------------- LOGIN --------------------- -->
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
